@@ -1,0 +1,4 @@
+[[package]]
+name = "chip8_emulator"
+version = "0.1.0"
+
