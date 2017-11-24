@@ -1,4 +1,5 @@
 
+#[derive(Debug)]
 pub struct Chip8Graphics {
     // Graphics Memory
     //

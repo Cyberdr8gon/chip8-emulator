@@ -37,11 +37,12 @@ fn main() {
     let mut file_buffer = Vec::new();
     file.read_to_end(&mut file_buffer).unwrap();
 
-    let rom = file_buffer.into_boxed_slice();
+    //println!("{:?}", file_buffer);
 
     let mut chip8_vm = chip8::Chip8::new();
-    chip8_vm.boot(&rom);
+    chip8_vm.boot(&file_buffer);
 
+    //println!("{:?}", chip8_vm);
     
     //println!("{:?}", rom);
     
@@ -127,7 +128,7 @@ fn main() {
         chip8_vm.render(&mut canvas);
 
         canvas.present();
-        ::std::thread::sleep(Duration::new(0, 1_000_000_000u32 / 60));
+        ::std::thread::sleep(Duration::new(0, 1_000_000_000u32 / 540));
     } 
 
 }

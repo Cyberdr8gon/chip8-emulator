@@ -10,36 +10,35 @@ use self::memory::*;
 use self::graphics::*;
 use self::keypad::*;
 
-
+#[derive(Debug)]
 pub struct Chip8 {
     cpu: Chip8CPU,
-    memory: Chip8Memory,
-    graphics: Chip8Graphics,
-    keypad: Chip8Keypad,
+    bus: Chip8Bus,
+
 }
 
 
 impl Chip8 {
 
     pub fn new() -> Chip8 {
-        let memory = Chip8Memory::new();
-        let graphics = Chip8Graphics::new();
-        let keypad = Chip8Keypad::new();
         let cpu = Chip8CPU::new();
+        let bus = Chip8Bus::new();
         Chip8 {
             cpu,
-            memory,
-            graphics,
-            keypad,
+            bus
         }
     }
 
-    pub fn boot(&mut self, rom: &Box<[u8]>) {
-
+    pub fn boot(&mut self, rom: &Vec<u8>) {
+        let mut i = 0x200;
+        for byte in rom {
+            (*self.bus.memory.memory)[i] = *byte;
+            i = i + 1;
+        }
     }
 
     pub fn step(&mut self) {
-        
+        self.cpu.step(&mut self.bus);
     }
 
     pub fn render(&self, canvas: &mut sdl2::render::Canvas<sdl2::video::Window>) {
@@ -51,3 +50,23 @@ impl Chip8 {
     }
 }
 
+#[derive(Debug)]
+pub struct Chip8Bus {
+    memory: Chip8Memory,
+    graphics: Chip8Graphics,
+    keypad: Chip8Keypad,
+}
+
+impl Chip8Bus {
+    fn new() -> Chip8Bus {
+        let memory = Chip8Memory::new();
+        let graphics = Chip8Graphics::new();
+        let keypad = Chip8Keypad::new();
+        Chip8Bus {
+            memory,
+            graphics,
+            keypad,
+
+        }
+    }
+}
