@@ -82,13 +82,13 @@ impl Chip8CPU {
                middle_lower_4_bits, 
                lowest_4_bits)
         {
-            // TODO add error passing to print full debug info on failiure
             (0x0, 0x0, 0xE, 0x0) => {
                 // TODO Clear screen
             }
             (0x0, 0x0, 0xE, 0xE) => {
                 // TODO Return from a subroutine
             }
+            // TODO add error passing to print full debug info on failiure
             _ => panic!("Error: Illegal Instruction: {:x} is not a Chip-8 Instruction.", opcode)
         }
     }
