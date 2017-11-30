@@ -16,7 +16,6 @@ use self::keypad::*;
 pub struct Chip8 {
     cpu: Chip8CPU,
     bus: Chip8Bus,
-
 }
 
 
@@ -44,12 +43,23 @@ impl Chip8 {
         self.cpu.step(&mut self.bus);
     }
 
-    pub fn render(&self, canvas: &mut sdl2::render::Canvas<sdl2::video::Window>) {
+    pub fn render(&mut self, canvas: &mut sdl2::render::Canvas<sdl2::video::Window>) {
+        if self.cpu.draw_to_screen_flag {
+            // TODO render graphics memory state to screen
+            
+            self.cpu.draw_to_screen_flag = false;
+        }
         
     }
 
-    pub fn do_key_event(&self, key: u8) {
-        
+    pub fn do_key_event(&mut self, key: u8) {
+        let key = key as usize;
+        if (*self.bus.keypad.keys)[key] {
+            self.bus.keypad.keys[key] = false;
+        } else {
+            self.cpu.is_halted_flag = false;
+            self.bus.keypad.keys[key] = true;
+        }
     }
 }
 

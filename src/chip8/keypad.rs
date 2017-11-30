@@ -2,7 +2,7 @@
 #[derive(Debug)]
 pub struct Chip8Keypad {
     // keypad on off state
-    keys: Box<[bool]>,
+    pub keys: Box<[bool]>,
 }
 
 impl Chip8Keypad {

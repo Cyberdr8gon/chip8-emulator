@@ -68,7 +68,14 @@ pub struct Chip8CPU {
     // Stack
     stack: Box<[u16]>,
 
+    // Flag to denote if the timer needs to be updated
     timer_update_flag: u8,
+
+    // a flag to halt operation until a event that wakes the
+    // cpu (i.e. keydown)
+    pub is_halted_flag: bool,
+
+    pub draw_to_screen_flag: bool,
 
 }
 
@@ -88,6 +95,10 @@ impl Chip8CPU {
             stack: vec![0; 16 as usize].into_boxed_slice(),
 
             timer_update_flag: 9,
+
+            is_halted_flag: false,
+
+            draw_to_screen_flag: true,
 
 
         }
