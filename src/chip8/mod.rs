@@ -10,12 +10,15 @@ use self::memory::*;
 use self::graphics::*;
 use self::keypad::*;
 
+// TODO add global constants for CPU clock speed and screen refresh rate
+
 #[derive(Debug)]
 pub struct Chip8 {
     cpu: Chip8CPU,
     bus: Chip8Bus,
 
 }
+
 
 
 impl Chip8 {
