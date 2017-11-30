@@ -15,4 +15,5 @@ script:
 
 before_install:
   - sudo apt-get -qq update
+  - sudo apt-get install -y libegl1-mesa-dev libgles2-mesa-dev
   - sudo apt-get install -y libsdl2*
