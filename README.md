@@ -5,4 +5,5 @@
 
 An emulator for the Chip8 Programming Language writen in Rust!
 
+The goal with this is to better understand emulation and build a high quality basis for further rust development.
 
