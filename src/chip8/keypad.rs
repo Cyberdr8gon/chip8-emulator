@@ -12,4 +12,8 @@ impl Chip8Keypad {
         }
 
     }
+
+    pub fn is_pressed(&self, key_index: u8) -> bool {
+        (*self.keys)[key_index as usize]
+    }
 }

@@ -58,8 +58,6 @@ fn main() {
 
         // replace the below with a transfer from graphics memory
         // to the sdl screen
-        canvas.set_draw_color(Color::RGB(0, 0, 0));
-        canvas.clear();
 
         // keyboard events
         for event in event_pump.poll_iter() {
@@ -120,6 +118,59 @@ fn main() {
                         },
                         _ => {}
                     }
+                },
+                Event::KeyUp { keycode: Some(keycode), .. } => {
+                    match keycode {
+                        Keycode::Num1 => {
+                            chip8_vm.do_key_event(0);
+                        },
+                        Keycode::Num2 => {
+                            chip8_vm.do_key_event(1);
+                        },
+                        Keycode::Num3 => {
+                            chip8_vm.do_key_event(2);
+                        },
+                        Keycode::Num4 => {
+                            chip8_vm.do_key_event(3);
+                        },
+                        Keycode::Q => {
+                            chip8_vm.do_key_event(4);
+                        },
+                        Keycode::W => {
+                            chip8_vm.do_key_event(5);
+                        },
+                        Keycode::E => {
+                            chip8_vm.do_key_event(6);
+                        },
+                        Keycode::R => {
+                            chip8_vm.do_key_event(7);
+                        },
+                        Keycode::A => {
+                            chip8_vm.do_key_event(8);
+                        },
+                        Keycode::S => {
+                            chip8_vm.do_key_event(9);
+                        },
+                        Keycode::D => {
+                            chip8_vm.do_key_event(10);
+                        },
+                        Keycode::F => {
+                            chip8_vm.do_key_event(11);
+                        },
+                        Keycode::Z => {
+                            chip8_vm.do_key_event(12);
+                        },
+                        Keycode::X => {
+                            chip8_vm.do_key_event(13);
+                        },
+                        Keycode::C => {
+                            chip8_vm.do_key_event(14);
+                        },
+                        Keycode::V => {
+                            chip8_vm.do_key_event(15);
+                        },
+                        _ => {}
+                    }
                 }
                 _ => {}
             }
@@ -128,7 +179,7 @@ fn main() {
         chip8_vm.render(&mut canvas);
 
         canvas.present();
-        ::std::thread::sleep(Duration::new(0, 1_000_000_000u32 / 540));
+        ::std::thread::sleep(Duration::new(0, 1_000_000_000u32 / 540 ));
     } 
 
 }
