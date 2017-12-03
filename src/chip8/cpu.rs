@@ -734,18 +734,19 @@ impl Chip8CPU {
 
             },
             IntermediateAsm::SUB_REG {reg_x_index, reg_y_index} => {
+                let high_val = (*self.reg_gp)[reg_x_index as usize];
                 if (*self.reg_gp)[reg_x_index as usize] > (*self.reg_gp)[reg_y_index as usize]  {
                     (*self.reg_gp)[0xf] = 1;
                 } else {
                     (*self.reg_gp)[0xf] = 0;
                 }
 
-                (*self.reg_gp)[reg_x_index as usize] = (*self.reg_gp)[reg_x_index as usize] 
-                                                - (*self.reg_gp)[reg_y_index as usize];
+                (*self.reg_gp)[reg_x_index as usize] = ((*self.reg_gp)[reg_x_index as usize] as i16
+                                                - (*self.reg_gp)[reg_y_index as usize] as i16) as u8;
                 self.reg_pc = self.reg_pc + 2;
             },
             IntermediateAsm::SHR {reg_x_index, reg_y_index} => {
-                if ((*self.reg_gp)[reg_y_index as usize] & 0x1 ) != 0  {
+                if ((*self.reg_gp)[reg_y_index as usize] % 2 ) == 1  {
                     (*self.reg_gp)[0xf] = 1;
                 } else {
                     (*self.reg_gp)[0xf] = 0;
@@ -762,8 +763,8 @@ impl Chip8CPU {
                     (*self.reg_gp)[0xf] = 0;
                 }
 
-                (*self.reg_gp)[reg_x_index as usize] = (*self.reg_gp)[reg_y_index as usize] 
-                                                - (*self.reg_gp)[reg_x_index as usize];
+                (*self.reg_gp)[reg_x_index as usize] = ((*self.reg_gp)[reg_y_index as usize] as i16 
+                                                - (*self.reg_gp)[reg_x_index as usize] as i16) as u8;
                 self.reg_pc = self.reg_pc + 2;
 
             },
